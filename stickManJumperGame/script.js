@@ -57,7 +57,7 @@ loop = function () {
         playerOne.yVelocity *= 0.9;
         playerOne.xVelocity *= 0.9;
     };
-
+    // THIS IS A GITHUB DESKTOP TEST
     if (playerOne.positionY > context.canvas.height - 25) { //collision with floor
         playerOne.yVelocity = 0;
         playerOne.positionY = context.canvas.height - 25;
