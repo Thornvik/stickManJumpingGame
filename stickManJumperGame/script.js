@@ -60,8 +60,7 @@ loop = function () {
     };
 
     if (playerOne.positionY > context.canvas.height - 25) { //collision with floor
-        playerOne.yVelocity = 0;
-        playerOne.positionY = context.canvas.height - 25;
+        playerOne.yVelocity = 0; // FIXED ROOF
     } else if (playerOne.positionY < 0) { //collision with roof
         playerOne.yVelocity = +1;
         playerOne.positionY = context.canvas.height - 25;
