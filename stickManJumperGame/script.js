@@ -83,3 +83,7 @@ window.addEventListener('keydown', controller.keyListner);
 window.addEventListener('keyup', controller.keyListner);
 
 window.requestAnimationFrame(loop);
+
+
+console.log('yoyoThisisTim');
+// BY: T.O
