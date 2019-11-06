@@ -64,7 +64,6 @@ loop = function () {
         playerOne.positionY = context.canvas.height - 25;
     } else if (playerOne.positionY < 0) { //collision with roof
         playerOne.yVelocity = +1;
-        playerOne.positionY = context.canvas.height - 25;
     } else if (playerOne.positionX > context.canvas.width - 25) { //collision with right wall
         //playerOne.xVelocity = -1;
         playerOne.positionX = 0;
