@@ -51,7 +51,6 @@ loop = function () {
     }
     else if (controller.left) {
         playerOne.xVelocity -= 1;
-
     };
 
     if (controller.up == false || controller.down == false || controller.right == false || controller.left == false) { //friction, that comes in to effect when you release the key
@@ -63,16 +62,14 @@ loop = function () {
         playerOne.yVelocity = 0;
         playerOne.positionY = context.canvas.height - 25;
     } else if (playerOne.positionY < 0) { //collision with roof
-        playerOne.yVelocity = +1;
+        playerOne.yVelocity = 1;
         playerOne.positionY = context.canvas.height - 25;
     } else if (playerOne.positionX > context.canvas.width - 25) { //collision with right wall
         //playerOne.xVelocity = -1;
         playerOne.positionX = 0;
-
     } else if (playerOne.positionX < 0) { //collision with left wall
         //playerOne.xVelocity = +1;
         playerOne.positionX = context.canvas.width - 25;
-
     }
 
     playerOne.positionX += playerOne.xVelocity; //transfroms the speed to position.
