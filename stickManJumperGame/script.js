@@ -9,46 +9,46 @@ playerOne = { //Size of player and start position
     height: 25,
     width: 25,
     jumping: true,
-    positionX: (context.canvas.width - 25) /2,
+    positionX: (context.canvas.width - 25) / 2,
     xVelocity: 0,
     positionY: context.canvas.height - 25,
     yVelocity: 0,
 };
-
+// NEEEEW TEST TEST
 controller = {  //Controlles for the player
     left: false,
     right: false,
     up: false,
-    down: false,  
-    keyListner:function(event) { 
-        var keyState = (event.type == 'keydown')?true:false; //cheacks if it is keydown or not
-        switch(event.keyCode) {
+    down: false,
+    keyListner: function (event) {
+        var keyState = (event.type == 'keydown') ? true : false; //cheacks if it is keydown or not
+        switch (event.keyCode) {
             case 39:
                 controller.right = keyState;
-            break;
+                break;
             case 37:
                 controller.left = keyState;
-            break;
+                break;
             case 38:
                 controller.up = keyState;
-            break;
+                break;
             case 40:
                 controller.down = keyState;
-            break;
-         }
-     }
+                break;
+        }
+    }
 };
 
-loop = function() {
+loop = function () {
     if (controller.up) { //set speed of which object will move in.
         playerOne.yVelocity -= 1;
-    } 
+    }
     else if (controller.down) {
         playerOne.yVelocity += 1;
     }
     else if (controller.right) {
         playerOne.xVelocity += 1;
-    } 
+    }
     else if (controller.left) {
         playerOne.xVelocity -= 1;
     };
@@ -76,7 +76,7 @@ loop = function() {
     context.fillStyle = 'white';
     context.beginPath();
     context.fillRect(playerOne.positionX, playerOne.positionY, playerOne.width, playerOne.height);
-    
+
     window.requestAnimationFrame(loop);
 }
 window.addEventListener('keydown', controller.keyListner);
