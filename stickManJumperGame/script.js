@@ -16,10 +16,10 @@ playerOne = { //Size of player and start position
 };
 
 platforms = {
-    height: 20,
-    width: 200,
-    positionX: (context.canvas.width - 200) / 2,
-    positionY: 400,
+    height: [20,],
+    width: [200, 150, 100],
+    positionX: [(context.canvas.width - 200) / 2, 100, 300],
+    positionY: [400, 300, 200],
 }
 
 controller = {  //Controlles for the player
@@ -85,11 +85,21 @@ loop = function () {
     //The x position of the player is less than the x position of the platform plus its width.
     //The y position of the player is greater than the y position of the platform.
     //The y position of the player is less than the y position of the platform plus its height.
-    if (playerOne.positionX > platforms.positionX && playerOne.positionX < platforms.positionX + platforms.width &&
-        playerOne.positionY > platforms.positionY - playerOne.height && playerOne.positionY < platforms.positionY + platforms.height) {
-            playerOne.velocityY = 0;
-            playerOne.jumping = false;
-        }
+    if (playerOne.positionX > platforms.positionX[0] && playerOne.positionX < platforms.positionX[0] + platforms.width[0] && //first platform
+    playerOne.positionY > platforms.positionY[0] - playerOne.height && playerOne.positionY < platforms.positionY[0] + platforms.height[0]) {
+        playerOne.velocityY = 0;
+        playerOne.jumping = false;
+    }
+    if (playerOne.positionX > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
+    playerOne.positionY > platforms.positionY[1] - playerOne.height && playerOne.positionY < platforms.positionY[1] + platforms.height[0]) {
+        playerOne.velocityY = 0;
+        playerOne.jumping = false;
+    }
+    if (playerOne.positionX > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
+    playerOne.positionY > platforms.positionY[2] - playerOne.height && playerOne.positionY < platforms.positionY[2] + platforms.height[0]) {
+        playerOne.velocityY = 0;
+        playerOne.jumping = false;
+    }
 
     playerOne.positionX += playerOne.velocityX; //transfroms the speed to position.
     playerOne.positionY += playerOne.velocityY;
@@ -100,7 +110,11 @@ loop = function () {
     context.beginPath();
     context.fillRect(playerOne.positionX, playerOne.positionY, playerOne.width, playerOne.height);
     context.fillStyle ='salmon';
-    context.fillRect(platforms.positionX, platforms.positionY, platforms.width, platforms.height);
+    context.fillRect(platforms.positionX[0], platforms.positionY[0], platforms.width[0], platforms.height[0]);
+    context.fillStyle ='salmon';
+    context.fillRect(platforms.positionX[1], platforms.positionY[1], platforms.width[1], platforms.height[0]);
+    context.fillStyle ='salmon';
+    context.fillRect(platforms.positionX[2], platforms.positionY[2], platforms.width[2], platforms.height[0]);
 
     window.requestAnimationFrame(loop);
 }
