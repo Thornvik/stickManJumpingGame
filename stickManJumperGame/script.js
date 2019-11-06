@@ -8,13 +8,20 @@ context.canvas.width = 800;
 playerOne = { //Size of player and start position
     height: 25,
     width: 25,
-    jumping: true,
+    jumping: false,
     positionX: (context.canvas.width - 25) / 2,
-    xVelocity: 0,
+    velocityX: 0,
     positionY: context.canvas.height - 25,
-    yVelocity: 0,
+    velocityY: 0,
 };
-// Tures test
+
+platforms = {
+    height: 20,
+    width: 200,
+    positionX: (context.canvas.width - 200) / 2,
+    positionY: 400,
+}
+
 controller = {  //Controlles for the player
     left: false,
     right: false,
@@ -40,45 +47,60 @@ controller = {  //Controlles for the player
 };
 
 loop = function () {
-    if (controller.up) { //set speed of which object will move in.
-        playerOne.yVelocity -= 1;
+    if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
+        playerOne.velocityY -= 40;
+        playerOne.jumping = true;
     }
-    else if (controller.down) {
-        playerOne.yVelocity += 1;
+    else if (controller.down) { //not use right now
+        // playerOne.velocityY += 1;
     }
     else if (controller.right) {
-        playerOne.xVelocity += 1;
+        playerOne.velocityX += 1;
     }
     else if (controller.left) {
-        playerOne.xVelocity -= 1;
+        playerOne.velocityX -= 1;
     };
 
     if (controller.up == false || controller.down == false || controller.right == false || controller.left == false) { //friction, that comes in to effect when you release the key
-        playerOne.yVelocity *= 0.9;
-        playerOne.xVelocity *= 0.9;
+        playerOne.velocityY *= 0.9;
+        playerOne.velocityX *= 0.9;
     };
+    playerOne.velocityY += 1.5;
 
     if (playerOne.positionY > context.canvas.height - 25) { //collision with floor
-        playerOne.yVelocity = 0;
+        playerOne.velocityY = 0;
         playerOne.positionY = context.canvas.height - 25;
+        playerOne.jumping = false;
     } else if (playerOne.positionY < 0) { //collision with roof
-        playerOne.yVelocity = 1;
+        playerOne.velocityY = 1;
     } else if (playerOne.positionX > context.canvas.width - 25) { //collision with right wall
-        //playerOne.xVelocity = -1;
+        //playerOne.velocityX = -1;
         playerOne.positionX = 0;
     } else if (playerOne.positionX < 0) { //collision with left wall
-        //playerOne.xVelocity = +1;
+        //playerOne.velocityX = +1;
         playerOne.positionX = context.canvas.width - 25;
     }
 
-    playerOne.positionX += playerOne.xVelocity; //transfroms the speed to position.
-    playerOne.positionY += playerOne.yVelocity;
+    //The x position of the player is greater than the x position of the platform.
+    //The x position of the player is less than the x position of the platform plus its width.
+    //The y position of the player is greater than the y position of the platform.
+    //The y position of the player is less than the y position of the platform plus its height.
+    if (playerOne.positionX > platforms.positionX && playerOne.positionX < platforms.positionX + platforms.width &&
+        playerOne.positionY > platforms.positionY - playerOne.height && playerOne.positionY < platforms.positionY + platforms.height) {
+            playerOne.velocityY = 0;
+            playerOne.jumping = false;
+        }
+
+    playerOne.positionX += playerOne.velocityX; //transfroms the speed to position.
+    playerOne.positionY += playerOne.velocityY;
 
     context.fillStyle = 'black';
     context.fillRect(0, 0, context.canvas.width, context.canvas.height); //x, y, w, h
     context.fillStyle = 'white';
     context.beginPath();
     context.fillRect(playerOne.positionX, playerOne.positionY, playerOne.width, playerOne.height);
+    context.fillStyle ='salmon';
+    context.fillRect(platforms.positionX, platforms.positionY, platforms.width, platforms.height);
 
     window.requestAnimationFrame(loop);
 }
