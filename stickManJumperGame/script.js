@@ -1,4 +1,4 @@
-var context, playerOne, controller, platforms, loop;
+var context, playerOne, controller, platforms, goal, loop;
 
 context = document.getElementById('myCanvas').getContext('2d');
 
@@ -15,12 +15,19 @@ playerOne = { //Size of player and start position
     velocityY: 0,
 };
 
-platforms = {
+platforms = { //platforms size and position
     height: [20,],
     width: [200, 150, 100],
     positionX: [(context.canvas.width - 200) / 2, 100, 300],
     positionY: [400, 300, 200],
-}
+};
+
+goal = { //goal size and position
+    height: [20,],
+    width: [50],
+    positionX: [150],
+    positionY: [70],
+};
 
 controller = {  //Controlles for the player
     left: false,
@@ -81,6 +88,7 @@ loop = function () {
         playerOne.positionX = context.canvas.width - 25;
     }
 
+    //platfrom collision
     //The x position of the player is greater than the x position of the platform.
     //The x position of the player is less than the x position of the platform plus its width.
     //The y position of the player is greater than the y position of the platform.
@@ -90,15 +98,24 @@ loop = function () {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
     }
-    if (playerOne.positionX > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
+    else if (playerOne.positionX > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
     playerOne.positionY > platforms.positionY[1] - playerOne.height && playerOne.positionY < platforms.positionY[1] + platforms.height[0]) {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
     }
-    if (playerOne.positionX > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
+    else if (playerOne.positionX > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
     playerOne.positionY > platforms.positionY[2] - playerOne.height && playerOne.positionY < platforms.positionY[2] + platforms.height[0]) {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
+    }
+
+    //win
+    if (playerOne.positionX > goal.positionX[0] && playerOne.positionX < goal.positionX[0] + goal.width[0] && //first platform
+    playerOne.positionY > goal.positionY[0] - playerOne.height && playerOne.positionY < goal.positionY[0] + goal.height[0]) {
+        playerOne.velocityY = 0;
+        playerOne.jumping = false;
+        // alert('you win')
+        location.reload();
     }
 
     playerOne.positionX += playerOne.velocityX; //transfroms the speed to position.
@@ -115,6 +132,8 @@ loop = function () {
     context.fillRect(platforms.positionX[1], platforms.positionY[1], platforms.width[1], platforms.height[0]);
     context.fillStyle ='salmon';
     context.fillRect(platforms.positionX[2], platforms.positionY[2], platforms.width[2], platforms.height[0]);
+    context.fillStyle ='mediumspringgreen';
+    context.fillRect(goal.positionX[0], goal.positionY[0], goal.width[0], goal.height[0]);
 
     window.requestAnimationFrame(loop);
 }
