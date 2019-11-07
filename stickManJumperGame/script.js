@@ -80,6 +80,7 @@ loop = function () {
     if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
         playerOne.velocityY -= 40;
         playerOne.jumping = true;
+        playerOne.isOnGround = false;
     }
     else if (controller.down) { //not use right now
         // playerOne.velocityY += 1;
@@ -98,15 +99,11 @@ loop = function () {
         playerOne.velocityX = 4;
     }
 
-    if (!playerOne.isOnGround) { //gravety
-        playerOne.velocityY += 1.5;
-    } else {
-        playerOne.velocityY = 0;
-    }
+    playerOne.isOnGround = false;
 
     if (playerOne.positionY > context.canvas.height - 25) { //collision with floor
         // playerOne.velocityY = 0;
-        // playerOne.positionY = context.canvas.height - 25;
+        playerOne.positionY = context.canvas.height - 25;
         playerOne.jumping = false;
         playerOne.isOnGround = true;
     } else if (playerOne.positionY < 0) { //collision with roof
@@ -124,14 +121,17 @@ loop = function () {
         const platform = platforms[i];
 
         if (playerOne.positionX + playerOne.width > platform.positionX && playerOne.positionX < platform.positionX + platform.width) {
+            
             // Topside
-            if (playerOne.positionY + playerOne.height + 1 > platform.positionY) {
-                isOnGround = true;
-                jumping = false;
+            if (playerOne.positionY + playerOne.height + 1 > platform.positionY && playerOne.positionY + playerOne.height < platform.positionY + platform.height) {
+                console.log('topside');
+                playerOne.isOnGround = true;
+                playerOne.jumping = false;
             };
 
             // Underside
-            if (playerOne.positionY - 1 < platform.positionY + platform.height) {
+            if (playerOne.positionY - 1 < platform.positionY + platform.height && playerOne.positionY > platform.positionY) {
+                console.log('bottomside');
                 playerOne.velocityY = 0;
             };
         }
@@ -167,6 +167,14 @@ loop = function () {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
         location.reload();
+    }
+
+    if (!playerOne.isOnGround) { //gravity
+        playerOne.velocityY += 1.5;
+        playerOne.jumping = true;
+    } else {
+        playerOne.velocityY = 0;
+        playerOne.jumping = false;
     }
 
     playerOne.positionX += playerOne.velocityX; //transfroms the speed to position.
