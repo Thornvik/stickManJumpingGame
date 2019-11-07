@@ -93,28 +93,31 @@ loop = function () {
     //The x position of the player is less than the x position of the platform plus its width.
     //The y position of the player is greater than the y position of the platform.
     //The y position of the player is less than the y position of the platform plus its height.
-    if (playerOne.positionX > platforms.positionX[0] && playerOne.positionX < platforms.positionX[0] + platforms.width[0] && //first platform
+    if (playerOne.positionX + playerOne.width > platforms.positionX[0]  && playerOne.positionX < platforms.positionX[0] + platforms.width[0] && //first platform
     playerOne.positionY > platforms.positionY[0] - playerOne.height && playerOne.positionY < platforms.positionY[0] + platforms.height[0]) {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
     }
-    else if (playerOne.positionX > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
+    else if (playerOne.positionX + playerOne.width > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
     playerOne.positionY > platforms.positionY[1] - playerOne.height && playerOne.positionY < platforms.positionY[1] + platforms.height[0]) {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
     }
-    else if (playerOne.positionX > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
+    else if (playerOne.positionX + playerOne.width > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
     playerOne.positionY > platforms.positionY[2] - playerOne.height && playerOne.positionY < platforms.positionY[2] + platforms.height[0]) {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
     }
+    if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
+        playerOne.velocityY -= 40;
+        playerOne.jumping = true;
+    }
 
-    //win
-    if (playerOne.positionX > goal.positionX[0] && playerOne.positionX < goal.positionX[0] + goal.width[0] && //first platform
+    //Goal platfrom
+    if (playerOne.positionX + playerOne.width > goal.positionX[0] && playerOne.positionX < goal.positionX[0] + goal.width[0] && //first platform
     playerOne.positionY > goal.positionY[0] - playerOne.height && playerOne.positionY < goal.positionY[0] + goal.height[0]) {
         playerOne.velocityY = 0;
         playerOne.jumping = false;
-        // alert('you win')
         location.reload();
     }
 
