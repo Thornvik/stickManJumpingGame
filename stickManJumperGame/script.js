@@ -9,21 +9,41 @@ playerOne = { //Size of player and start position
     height: 25,
     width: 25,
     jumping: false,
+    isOnGround: true,
     positionX: (context.canvas.width - 25) / 2,
     velocityX: 0,
     positionY: context.canvas.height - 25,
     velocityY: 0,
 };
 
-platforms = { //platforms size and position
-    height: [20,],
-    width: [200, 150, 100],
-    positionX: [(context.canvas.width - 200) / 2, 100, 300],
-    positionY: [400, 300, 200],
-};
+// platforms = { //platforms size and position
+//     height: [20,],
+//     width: [200, 150, 100],
+//     positionX: [(context.canvas.width - 200) / 2, 100, 300],
+//     positionY: [400, 300, 200],
+// };
+
+platforms = [{ //new and improved platfrom structure
+    height: 20,
+    width: 200,
+    positionX: 100,
+    positionY: 400
+}, {
+    height: 20,
+    width: 200,
+    positionX: 500,
+    positionY: 400
+}];
+
+// for (let i = 0; i < platforms.length; i++) {
+//     const platform = platforms[i];
+
+//     context.fillStyle="salmon";
+//     context.fillRect(platform.positionX, platform.positionY, platform.width, platform.height);
+// };
 
 goal = { //goal size and position
-    height: [20,],
+    height: [20],
     width: [50],
     positionX: [150],
     positionY: [70],
@@ -54,6 +74,9 @@ controller = {  //Controlles for the player
 };
 
 loop = function () {
+    playerOne.velocityY *= 0.9; //friction
+    playerOne.velocityX *= 0.9;
+
     if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
         playerOne.velocityY -= 40;
         playerOne.jumping = true;
@@ -68,16 +91,24 @@ loop = function () {
         playerOne.velocityX -= 1;
     };
 
-    if (controller.up == false || controller.down == false || controller.right == false || controller.left == false) { //friction, that comes in to effect when you release the key
-        playerOne.velocityY *= 0.9;
-        playerOne.velocityX *= 0.9;
-    };
-    playerOne.velocityY += 1.5;
+    if (playerOne.velocityX < -4) { //max velocity
+        playerOne.velocityX = -4;
+    }
+    if (playerOne.velocityX > 4) {
+        playerOne.velocityX = 4;
+    }
+
+    if (!playerOne.isOnGround) { //gravety
+        playerOne.velocityY += 1.5;
+    } else {
+        playerOne.velocityY = 0;
+    }
 
     if (playerOne.positionY > context.canvas.height - 25) { //collision with floor
-        playerOne.velocityY = 0;
-        playerOne.positionY = context.canvas.height - 25;
+        // playerOne.velocityY = 0;
+        // playerOne.positionY = context.canvas.height - 25;
         playerOne.jumping = false;
+        playerOne.isOnGround = true;
     } else if (playerOne.positionY < 0) { //collision with roof
         playerOne.velocityY = 1;
     } else if (playerOne.positionX > context.canvas.width - 25) { //collision with right wall
@@ -88,30 +119,47 @@ loop = function () {
         playerOne.positionX = context.canvas.width - 25;
     }
 
+
+    for (let i = 0; i < platforms.length; i++) { //new and improved platfrom collision
+        const platform = platforms[i];
+
+        if (playerOne.positionX + playerOne.width > platform.positionX && playerOne.positionX < platform.positionX + platform.width) {
+            // Topside
+            if (playerOne.positionY + playerOne.height + 1 > platform.positionY) {
+                isOnGround = true;
+                jumping = false;
+            };
+
+            // Underside
+            if (playerOne.positionY - 1 < platform.positionY + platform.height) {
+                playerOne.velocityY = 0;
+            };
+        }
+    }
     //platfrom collision
     //The x position of the player is greater than the x position of the platform.
     //The x position of the player is less than the x position of the platform plus its width.
     //The y position of the player is greater than the y position of the platform.
     //The y position of the player is less than the y position of the platform plus its height.
-    if (playerOne.positionX + playerOne.width > platforms.positionX[0]  && playerOne.positionX < platforms.positionX[0] + platforms.width[0] && //first platform
-    playerOne.positionY > platforms.positionY[0] - playerOne.height && playerOne.positionY < platforms.positionY[0] + platforms.height[0]) {
-        playerOne.velocityY = 0;
-        playerOne.jumping = false;
-    }
-    else if (playerOne.positionX + playerOne.width > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
-    playerOne.positionY > platforms.positionY[1] - playerOne.height && playerOne.positionY < platforms.positionY[1] + platforms.height[0]) {
-        playerOne.velocityY = 0;
-        playerOne.jumping = false;
-    }
-    else if (playerOne.positionX + playerOne.width > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
-    playerOne.positionY > platforms.positionY[2] - playerOne.height && playerOne.positionY < platforms.positionY[2] + platforms.height[0]) {
-        playerOne.velocityY = 0;
-        playerOne.jumping = false;
-    }
-    if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
-        playerOne.velocityY -= 40;
-        playerOne.jumping = true;
-    }
+    // if (playerOne.positionX + playerOne.width > platforms.positionX[0]  && playerOne.positionX < platforms.positionX[0] + platforms.width[0] && //first platform
+    // playerOne.positionY > platforms.positionY[0] - playerOne.height && playerOne.positionY < platforms.positionY[0] + platforms.height[0]) {
+    //     playerOne.velocityY = 0;
+    //     playerOne.jumping = false;
+    // }
+    // else if (playerOne.positionX + playerOne.width > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
+    // playerOne.positionY > platforms.positionY[1] - playerOne.height && playerOne.positionY < platforms.positionY[1] + platforms.height[0]) {
+    //     playerOne.velocityY = 0;
+    //     playerOne.jumping = false;
+    // }
+    // else if (playerOne.positionX + playerOne.width > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
+    // playerOne.positionY > platforms.positionY[2] - playerOne.height && playerOne.positionY < platforms.positionY[2] + platforms.height[0]) {
+    //     playerOne.velocityY = 0;
+    //     playerOne.jumping = false;
+    // }
+    // if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
+    //     playerOne.velocityY -= 40;
+    //     playerOne.jumping = true;
+    // }
 
     //Goal platfrom
     if (playerOne.positionX + playerOne.width > goal.positionX[0] && playerOne.positionX < goal.positionX[0] + goal.width[0] && //first platform
@@ -129,12 +177,18 @@ loop = function () {
     context.fillStyle = 'white';
     context.beginPath();
     context.fillRect(playerOne.positionX, playerOne.positionY, playerOne.width, playerOne.height);
-    context.fillStyle ='salmon';
-    context.fillRect(platforms.positionX[0], platforms.positionY[0], platforms.width[0], platforms.height[0]);
-    context.fillStyle ='salmon';
-    context.fillRect(platforms.positionX[1], platforms.positionY[1], platforms.width[1], platforms.height[0]);
-    context.fillStyle ='salmon';
-    context.fillRect(platforms.positionX[2], platforms.positionY[2], platforms.width[2], platforms.height[0]);
+    for (let i = 0; i < platforms.length; i++) {
+        const platform = platforms[i];
+    
+        context.fillStyle="salmon";
+        context.fillRect(platform.positionX, platform.positionY, platform.width, platform.height);
+    };
+    // context.fillStyle ='salmon';
+    // context.fillRect(platforms.positionX[0], platforms.positionY[0], platforms.width[0], platforms.height[0]);
+    // context.fillStyle ='salmon';
+    // context.fillRect(platforms.positionX[1], platforms.positionY[1], platforms.width[1], platforms.height[0]);
+    // context.fillStyle ='salmon';
+    // context.fillRect(platforms.positionX[2], platforms.positionY[2], platforms.width[2], platforms.height[0]);
     context.fillStyle ='mediumspringgreen';
     context.fillRect(goal.positionX[0], goal.positionY[0], goal.width[0], goal.height[0]);
 
