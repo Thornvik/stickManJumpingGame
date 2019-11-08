@@ -1,0 +1,14 @@
+* {
+    margin:0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+canvas {
+    width: 200vh;
+    height: 100vh;
+    margin-left: 2.3%;
+}
