@@ -8,20 +8,12 @@ context.canvas.width = 800;
 playerOne = { //Size of player and start position
     height: 25,
     width: 25,
-    jumping: false,
     isOnGround: true,
     positionX: (context.canvas.width - 25) / 2,
     velocityX: 0,
     positionY: context.canvas.height - 25,
     velocityY: 0,
 };
-
-// platforms = { //platforms size and position
-//     height: [20,],
-//     width: [200, 150, 100],
-//     positionX: [(context.canvas.width - 200) / 2, 100, 300],
-//     positionY: [400, 300, 200],
-// };
 
 platforms = [{ //new and improved platfrom structure
     height: 20,
@@ -33,14 +25,17 @@ platforms = [{ //new and improved platfrom structure
     width: 200,
     positionX: 500,
     positionY: 400
+}, {
+    height: 20,
+    width: 200,
+    positionX: 200,
+    positionY: 200
+}, {
+    height: 20,
+    width: 200,
+    positionX: 400,
+    positionY: 200
 }];
-
-// for (let i = 0; i < platforms.length; i++) {
-//     const platform = platforms[i];
-
-//     context.fillStyle="salmon";
-//     context.fillRect(platform.positionX, platform.positionY, platform.width, platform.height);
-// };
 
 goal = { //goal size and position
     height: [20],
@@ -77,9 +72,8 @@ loop = function () {
     playerOne.velocityY *= 0.9; //friction
     playerOne.velocityX *= 0.9;
 
-    if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
+    if (controller.up && playerOne.isOnGround == true) { //set speed of which object will move in.
         playerOne.velocityY -= 40;
-        playerOne.jumping = true;
         playerOne.isOnGround = false;
     }
     else if (controller.down) { //not use right now
@@ -104,7 +98,6 @@ loop = function () {
     if (playerOne.positionY > context.canvas.height - 25) { //collision with floor
         // playerOne.velocityY = 0;
         playerOne.positionY = context.canvas.height - 25;
-        playerOne.jumping = false;
         playerOne.isOnGround = true;
     } else if (playerOne.positionY < 0) { //collision with roof
         playerOne.velocityY = 1;
@@ -126,7 +119,6 @@ loop = function () {
             if (playerOne.positionY + playerOne.height + 1 > platform.positionY && playerOne.positionY + playerOne.height < platform.positionY + platform.height) {
                 console.log('topside');
                 playerOne.isOnGround = true;
-                playerOne.jumping = false;
             };
 
             // Underside
@@ -136,45 +128,20 @@ loop = function () {
             };
         }
     }
-    //platfrom collision
-    //The x position of the player is greater than the x position of the platform.
-    //The x position of the player is less than the x position of the platform plus its width.
-    //The y position of the player is greater than the y position of the platform.
-    //The y position of the player is less than the y position of the platform plus its height.
-    // if (playerOne.positionX + playerOne.width > platforms.positionX[0]  && playerOne.positionX < platforms.positionX[0] + platforms.width[0] && //first platform
-    // playerOne.positionY > platforms.positionY[0] - playerOne.height && playerOne.positionY < platforms.positionY[0] + platforms.height[0]) {
-    //     playerOne.velocityY = 0;
-    //     playerOne.jumping = false;
-    // }
-    // else if (playerOne.positionX + playerOne.width > platforms.positionX[1] && playerOne.positionX < platforms.positionX[1] + platforms.width[1] && //secound platfrom
-    // playerOne.positionY > platforms.positionY[1] - playerOne.height && playerOne.positionY < platforms.positionY[1] + platforms.height[0]) {
-    //     playerOne.velocityY = 0;
-    //     playerOne.jumping = false;
-    // }
-    // else if (playerOne.positionX + playerOne.width > platforms.positionX[2] && playerOne.positionX < platforms.positionX[2] + platforms.width[2] && //theird platform
-    // playerOne.positionY > platforms.positionY[2] - playerOne.height && playerOne.positionY < platforms.positionY[2] + platforms.height[0]) {
-    //     playerOne.velocityY = 0;
-    //     playerOne.jumping = false;
-    // }
-    // if (controller.up && playerOne.jumping == false) { //set speed of which object will move in.
-    //     playerOne.velocityY -= 40;
-    //     playerOne.jumping = true;
-    // }
 
     //Goal platfrom
     if (playerOne.positionX + playerOne.width > goal.positionX[0] && playerOne.positionX < goal.positionX[0] + goal.width[0] && //first platform
     playerOne.positionY > goal.positionY[0] - playerOne.height && playerOne.positionY < goal.positionY[0] + goal.height[0]) {
         playerOne.velocityY = 0;
-        playerOne.jumping = false;
+
         location.reload();
+        playerOne.isOnGround = true;
     }
 
     if (!playerOne.isOnGround) { //gravity
         playerOne.velocityY += 1.5;
-        playerOne.jumping = true;
     } else {
         playerOne.velocityY = 0;
-        playerOne.jumping = false;
     }
 
     playerOne.positionX += playerOne.velocityX; //transfroms the speed to position.
@@ -191,17 +158,11 @@ loop = function () {
         context.fillStyle="salmon";
         context.fillRect(platform.positionX, platform.positionY, platform.width, platform.height);
     };
-    // context.fillStyle ='salmon';
-    // context.fillRect(platforms.positionX[0], platforms.positionY[0], platforms.width[0], platforms.height[0]);
-    // context.fillStyle ='salmon';
-    // context.fillRect(platforms.positionX[1], platforms.positionY[1], platforms.width[1], platforms.height[0]);
-    // context.fillStyle ='salmon';
-    // context.fillRect(platforms.positionX[2], platforms.positionY[2], platforms.width[2], platforms.height[0]);
     context.fillStyle ='mediumspringgreen';
     context.fillRect(goal.positionX[0], goal.positionY[0], goal.width[0], goal.height[0]);
 
     window.requestAnimationFrame(loop);
-}
+};
 window.addEventListener('keydown', controller.keyListner);
 window.addEventListener('keyup', controller.keyListner);
 
