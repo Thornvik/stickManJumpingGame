@@ -20,23 +20,118 @@ platforms = [{ //new and improved platfrom structure
     height: 20,
     width: 200,
     positionX: 100,
-    positionY: 400
+    positionY: 900
+}, {
+    height: 20,
+    width: 100,
+    positionX: 350,
+    positionY: 800
 }, {
     height: 20,
     width: 200,
+    positionX: 550,
+    positionY: 750
+}, {
+    height: 20,
+    width: 150,
+    positionX: 800,
+    positionY: 680
+}, {
+    height: 20,
+    width: 80,
+    positionX: 1000,
+    positionY: 580
+}, {
+    height: 20,
+    width: 50,
+    positionX: 1200,
+    positionY: 770
+}, {
+    height: 20,
+    width: 200,
+    positionX: 1300,
+    positionY: 680
+}, {
+    height: 20,
+    width: 100,
+    positionX: 1550,
+    positionY: 580
+}, {
+    height: 20,
+    width: 120,
+    positionX: 1680,
+    positionY: 450
+}, {
+    height: 20,
+    width: 50,
+    positionX: 1890,
+    positionY: 400
+}, {
+    height: 20,
+    width: 25,
+    positionX: 50,
+    positionY: 500
+}, {
+    height: 20,
+    width: 75,
+    positionX: 140,
+    positionY: 380
+}, {
+    height: 20,
+    width: 75,
+    positionX: 340,
+    positionY: 500
+}, {
+    height: 20,
+    width: 120,
     positionX: 500,
     positionY: 400
 }, {
     height: 20,
-    width: 200,
-    positionX: 200,
-    positionY: 200
+    width: 150,
+    positionX: 750,
+    positionY: 350
 }, {
     height: 20,
-    width: 200,
-    positionX: 400,
-    positionY: 200
+    width: 70,
+    positionX: 900,
+    positionY: 300,
 }, {
+    height: 20,
+    width: 50,
+    positionX: 750,
+    positionY: 180
+}, {
+    height: 20,
+    width: 100,
+    positionX: 600,
+    positionY: 150
+}, {
+    height: 20,
+    width: 10,
+    positionX: 500,
+    positionY: 150
+}, {
+    height: 20,
+    width: 10,
+    positionX: 400,
+    positionY: 150
+}, {
+    height: 20,
+    width: 10,
+    positionX: 300,
+    positionY: 150
+}, {
+    height: 20,
+    width: 30,
+    positionX: 200,
+    positionY: 100
+}, {
+    height: 20,
+    width: 100,
+    positionX: 600,
+    positionY: 150
+}, { //floor platform
     height: 20,
     width: context.canvas.width,
     positionX: (context.canvas.width - context.canvas.width) / 2,
