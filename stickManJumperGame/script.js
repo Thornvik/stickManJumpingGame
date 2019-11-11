@@ -12,7 +12,7 @@ playerOne = { //Size of player and start position
     isJumping: false,
     positionX: /*(context.canvas.width - 25) / 2*/ 150,
     velocityX: 0,
-    positionY: /*context.canvas.height - 25*/350,
+    positionY: /*context.canvas.height - 25*/550,
     velocityY: 0,
 };
 
