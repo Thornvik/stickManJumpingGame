@@ -2,11 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>stickManJumperGame</title>
 </head>
 <body>
+    <div id="winCondition" class="winCondition">
+        <h1>You win!</h1>
+        <div class="home" onclick="home()"></div>
+        <div class="restart" onclikc="start()"></div>
+    </div>
+    <!-- <div id="maps" class="maps">
+        <div class="gameTitle"><h1>cUBie</h1></div>
+        <div class="startMapOne" onclick="startMapOne()"><h2>level 1</h2></div>
+        <div class="startMapTwo" onclick="startMapTwo()"><h2>level 2</h2></div>
+    </div> -->
+
     <canvas id="myCanvas"></canvas>
+    
     <script src="script.js"></script>
 </body>
 </html>

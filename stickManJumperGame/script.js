@@ -1,6 +1,9 @@
-var context, playerOne, controller, platforms, goal, loop;
+var context, playerOne, controller, platforms, goal, loop, winCondition, startUI;
 
 context = document.getElementById('myCanvas').getContext('2d');
+winCondition = document.getElementById('winCondition');
+startUI = document.getElementById('maps')
+
 
 context.canvas.height = 1000;
 context.canvas.width = 2000;
@@ -12,7 +15,7 @@ playerOne = { //Size of player and start position
     isJumping: false,
     positionX: /*(context.canvas.width - 25) / 2*/ 150,
     velocityX: 0,
-    positionY: /*context.canvas.height - 25*/550,
+    positionY: /*context.canvas.height - 25*/800,
     velocityY: 0,
 };
 
@@ -235,7 +238,8 @@ loop = function () {
     //Goal platfrom
     if (playerOne.positionX + playerOne.width > goal.positionX && playerOne.positionX < goal.positionX + goal.width && 
     playerOne.positionY > goal.positionY - playerOne.height && playerOne.positionY < goal.positionY + goal.height) {
-        location.reload();
+        //location.reload();
+        winCondition.style.opacity = '100%';
         playerOne.isOnGround = true;
     }
 
@@ -275,4 +279,11 @@ loop = function () {
 window.addEventListener('keydown', controller.keyListner);
 window.addEventListener('keyup', controller.keyListner);
 
-window.requestAnimationFrame(loop);
+//function startMapOne() {
+    window.requestAnimationFrame(loop);
+    maps.style.opacity = '0%';
+//}
+
+function home() {
+    location.reload();
+};
