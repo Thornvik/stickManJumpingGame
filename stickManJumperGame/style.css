@@ -46,12 +46,12 @@ body {
     text-align: center;
 }
 
-.winhome {
+.winHome {
     position: absolute;
     width: 20%;
     height: 30%;
     left: 15%;
-    top: 60%;
+    top: 65%;
 }
 
 .winhome:hover {

@@ -138,7 +138,7 @@ platforms = [{ //new and improved platfrom structure
     height: 20,
     width: context.canvas.width,
     positionX: (context.canvas.width - context.canvas.width) / 2,
-    positionY: context.canvas.height -10, 
+    positionY: context.canvas.height -40, 
 }];
 
 goal = { //goal size and position
