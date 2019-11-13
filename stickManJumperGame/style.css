@@ -5,10 +5,73 @@
 
 body {
     overflow: hidden;
+    font-family: 'VT323';
+    color: white;
+    background-color: black;
+}
+
+.buttonHome {
+    margin-left:1%;
+}
+
+.buttonHome a {
+    text-decoration: none;
+    color: white;
+}
+
+.reset {
+    width:10%;
+    top:0;
+    margin-left: 95%;
+    position: absolute;
+}
+
+.reset:hover {
+    cursor:pointer;
+}
+
+.winCondition {
+    position: absolute;
+    width: 20%;
+    height: 25%;
+    left: -40%;
+    top: 30%;
+    background-color: rgb(32, 24, 41);
+    opacity: 100%;
+}
+
+.winCondition h1 {
+    margin-top: 20px;
+    color: white;
+    text-align: center;
+}
+
+.winHome {
+    position: absolute;
+    width: 20%;
+    left: 15%;
+    top: 65%;
+}
+
+.winHome:hover {
+    cursor:pointer;
+}
+
+.reStart {
+    position: absolute;
+    width: 20%;
+    left: 65%;
+    top: 60%;
+}
+
+.reStart:hover {
+    cursor:pointer;
 }
 
 canvas {
+    padding: 10px;
     width: 200vh;
     height: 100vh;
-    margin-left: 2.3%;
+    display: block;
+    margin: -10px auto;
 }

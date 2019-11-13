@@ -1,6 +1,9 @@
-var context, playerOne, controller, platforms, goal, loop;
+var context, playerOne, controller, platforms, goal, loop, winCondition, startUI;
 
 context = document.getElementById('myCanvas').getContext('2d');
+winCondition = document.getElementById('winCondition');
+startUI = document.getElementById('maps')
+
 
 context.canvas.height = 1000;
 context.canvas.width = 2000;
@@ -10,37 +13,22 @@ playerOne = { //Size of player and start position
     width: 25,
     isOnGround: true,
     isJumping: false,
-    positionX: /*(context.canvas.width - 25) / 2*/ 150,
+    positionX: /*(context.canvas.width - 25) / 2*/ 160,
     velocityX: 0,
-    positionY: /*context.canvas.height - 25*/350,
+    positionY: /*context.canvas.height - 25*/750,
     velocityY: 0,
 };
 
 platforms = [{ //new and improved platfrom structure
     height: 20,
-    width: 200,
-    positionX: 100,
-    positionY: 400
-}, {
-    height: 20,
-    width: 200,
-    positionX: 500,
-    positionY: 400
-}, {
-    height: 20,
-    width: 200,
-    positionX: 200,
-    positionY: 200
-}, {
-    height: 20,
-    width: 200,
-    positionX: 400,
-    positionY: 200
-}, {
+    width: 100,
+    positionX: 120,
+    positionY: 800
+}, { //floor platform
     height: 20,
     width: context.canvas.width,
     positionX: (context.canvas.width - context.canvas.width) / 2,
-    positionY: context.canvas.height -10, 
+    positionY: context.canvas.height - 40, 
 }];
 
 goal = { //goal size and position
@@ -140,7 +128,8 @@ loop = function () {
     //Goal platfrom
     if (playerOne.positionX + playerOne.width > goal.positionX && playerOne.positionX < goal.positionX + goal.width && 
     playerOne.positionY > goal.positionY - playerOne.height && playerOne.positionY < goal.positionY + goal.height) {
-        location.reload();
+        //location.reload();
+        winCondition.style.left = '40%';
         playerOne.isOnGround = true;
     }
 
@@ -181,3 +170,9 @@ window.addEventListener('keydown', controller.keyListner);
 window.addEventListener('keyup', controller.keyListner);
 
 window.requestAnimationFrame(loop);
+
+function reStart() { //resets player to start position
+    playerOne.positionX =160; //players start x position
+    playerOne.positionY =750; //players start y position
+    winCondition.style.left = '-40%';
+};
