@@ -12,6 +12,8 @@ body {
 
 .buttonHome {
     margin-left:1%;
+    position: absolute;
+    top: 0;
 }
 
 .buttonHome a {
