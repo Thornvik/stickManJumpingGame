@@ -10,48 +10,34 @@ body {
     background-color: black;
 }
 
-.maps {
+.buttonHome {
+    margin-left:1%;
+}
+
+.buttonHome a {
+    text-decoration: none;
+    color: white;
+}
+
+.reset {
+    width:10%;
+    top:0;
+    margin-left: 95%;
     position: absolute;
-    display: grid;
-    grid-template-columns: repeat(5 ,1fr);
-    grid-template-rows: repeat(2, 100%);
-    margin-top: 20%;
-    height: 20%;
-    width: 100%;
-    box-sizing: border-box;
-    opacity: 100%;
 }
 
-.gameTitle {
-    grid-column: 3 / span 1;
-    grid-row: 1 / span 1;
-    text-align: center;
-}
-
-.startMapOne {
-    grid-row: 2 / span 1;
-    grid-column: 2 / span 1;
-    background: red;
-    text-align: center;
-    padding-top: 20% ;
-}
-
-.startMapTwo {
-    grid-row: 2 / span 1;
-    grid-column: 4 / span 1;
-    background: blue;
-    text-align: center;
-    padding-top: 20% ;
+.reset:hover {
+    cursor:pointer;
 }
 
 .winCondition {
     position: absolute;
     width: 20%;
-    height: 30%;
-    left: 40%;
+    height: 25%;
+    left: -40%;
     top: 30%;
-    background-color: rgb(17, 11, 24);
-    opacity: 0%;
+    background-color: rgb(32, 24, 41);
+    opacity: 100%;
 }
 
 .winCondition h1 {
@@ -60,13 +46,16 @@ body {
     text-align: center;
 }
 
-.home {
+.winhome {
     position: absolute;
     width: 20%;
     height: 30%;
     left: 15%;
     top: 60%;
-    background-color: white;
+}
+
+.winhome:hover {
+    cursor:pointer;
 }
 
 .restart {
@@ -75,7 +64,10 @@ body {
     height: 30%;
     left: 65%;
     top: 60%;
-    background-color: white;
+}
+
+.restart:hover {
+    cursor:pointer;
 }
 
 canvas {

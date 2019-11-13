@@ -15,7 +15,7 @@ playerOne = { //Size of player and start position
     isJumping: false,
     positionX: /*(context.canvas.width - 25) / 2*/ 150,
     velocityX: 0,
-    positionY: /*context.canvas.height - 25*/800,
+    positionY: /*context.canvas.height - 25*/150,
     velocityY: 0,
 };
 
@@ -239,7 +239,7 @@ loop = function () {
     if (playerOne.positionX + playerOne.width > goal.positionX && playerOne.positionX < goal.positionX + goal.width && 
     playerOne.positionY > goal.positionY - playerOne.height && playerOne.positionY < goal.positionY + goal.height) {
         //location.reload();
-        winCondition.style.opacity = '100%';
+        winCondition.style.left = '40%';
         playerOne.isOnGround = true;
     }
 
@@ -279,11 +279,10 @@ loop = function () {
 window.addEventListener('keydown', controller.keyListner);
 window.addEventListener('keyup', controller.keyListner);
 
-//function startMapOne() {
-    window.requestAnimationFrame(loop);
-    maps.style.opacity = '0%';
-//}
+ window.requestAnimationFrame(loop);
 
-function home() {
-    location.reload();
+function reStart() {
+    playerOne.positionY =150;
+    playerOne.positionX =150;
+    winCondition.style.left = '-40%';
 };
