@@ -55,6 +55,11 @@ body {
     top: 65%;
 }
 
+.winHome a {
+    text-decoration: none;
+    color: white;
+}
+
 .winHome:hover {
     cursor:pointer;
 }
